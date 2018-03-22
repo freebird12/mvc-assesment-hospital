@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace AssessmentHospital.Models
+{
+    public class BookClass
+    {
+
+        public int aid { get; set; }
+
+        [Required(ErrorMessage ="Enter Registered Patient ID")]
+        [Display(Name ="Patient ID:")]
+        public int patientid { get; set; }
+
+        [Required(ErrorMessage = "Select Department")]
+        [Display(Name = "Department Name:")]
+        public string dept { get; set; }
+
+        [Required(ErrorMessage = "Enter Doctor Name")]
+        [Display(Name = "Doctor Name:")]
+        public string docname { get; set; }
+
+        [Required(ErrorMessage = "Enter Preferred Date")]
+        [Display(Name = "Preferred Date(dd/mm/yyyy):")]
+        [DataType(DataType.DateTime)]
+        public System.DateTime predate { get; set; }
+
+        [Required(ErrorMessage = "Select TimeSlot")]
+        [Display(Name = "Time Slot:")]
+        public string timeslot { get; set; }
+
+        public string stat { get; set; }
+    }
+
+    [MetadataType(typeof(BookClass))]
+    public partial class tblBookAppointment1349205
+    {
+    }
+}
