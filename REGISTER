@@ -1,0 +1,37 @@
+@model AssessmentHospital.Models.RegisterClass
+@{
+    ViewBag.Title = "register";
+    Layout = "~/Views/Shared/restlayout.cshtml";
+}
+
+<h2 style="color:cornflowerblue">Register Patient</h2>
+
+@using (Html.BeginForm())
+{
+<table>
+    <tr>
+        <td>@Html.LabelFor(m=>m.name)</td>
+        <td>@Html.EditorFor(m => m.name)</td>
+        <td>@Html.ValidationMessageFor(m => m.name)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m => m.age)</td>
+        <td>@Html.EditorFor(m => m.age)</td>
+        <td>@Html.ValidationMessageFor(m => m.age)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m => m.contact)</td>
+        <td>@Html.EditorFor(m => m.contact)</td>
+        <td>@Html.ValidationMessageFor(m => m.contact)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m => m.adr)</td>
+        <td>@Html.TextAreaFor(m => m.adr)</td>
+        <td>@Html.ValidationMessageFor(m => m.adr)</td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="Register"></td>
+    </tr>
+</table>
+
+}
