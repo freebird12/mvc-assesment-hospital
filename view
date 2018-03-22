@@ -1,0 +1,39 @@
+@model IEnumerable<AssessmentHospital.Models.sp_view1349205_Result>
+@{
+    ViewBag.Title = "viewapp";
+    Layout = "~/Views/Shared/restlayout.cshtml";
+    WebGrid grid = new WebGrid(Model);
+}
+
+<h2 style="color:cornflowerblue">View All Appointments</h2>
+
+@using (Html.BeginForm())
+{
+<span> Search Department:</span>
+    <input type="text" name="dep"/>
+    <input type="submit" value="Search" formaction="searchbydep"/>
+}
+@grid.GetHtml(
+    tableStyle: "table table-bordered",
+    columns: new[]
+    {
+        grid.Column("aid","Appointment ID"),
+        grid.Column("patientid","Patient ID"),
+        grid.Column("name","Patient Name"),
+        grid.Column("age","Age"),
+        grid.Column("contact","Contact"),
+        grid.Column("adr","Address"),
+        grid.Column("dept","Department"),
+        grid.Column("docname","Doctor Name"),
+        grid.Column("predate","Preferred Date"),
+        grid.Column("timeslot","Time Slot"),
+        grid.Column("stat","Status"),
+        grid.Column(format: @<text>@Html.ActionLink("Cancel Appointment","cancel",new { id= item.aid})</text>)
+
+
+
+
+
+
+    }
+    )
