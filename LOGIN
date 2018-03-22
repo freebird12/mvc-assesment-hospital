@@ -1,0 +1,24 @@
+
+@{
+    ViewBag.Title = "login";
+}
+<h1 style="color:darkcyan">Welcome to Hospital Management System</h1>
+<h2 style="color:cornflowerblue">Login Here</h2>
+
+@using (Html.BeginForm())
+{
+<table>
+    <tr>
+        <td>Username-</td>
+        <td><input type="text" name="username"/></td>
+    </tr>
+    <tr>
+        <td>Password-</td>
+        <td><input type="password" name="pass" /></td>
+    </tr>
+    <tr>
+      <td><input type="submit" value="Login" /></td>
+    </tr>
+</table>
+
+}
