@@ -1,0 +1,57 @@
+@model AssessmentHospital.Models.BookClass
+@{
+    ViewBag.Title = "bookapp";
+    Layout = "~/Views/Shared/restlayout.cshtml";
+}
+
+@{ 
+    List<SelectListItem> listdep = new List<SelectListItem>();
+    listdep.Add(new SelectListItem { Text = "ENT", Value = "ENT" });
+    listdep.Add(new SelectListItem { Text = "Cardiology", Value = "Cardiology" });
+    listdep.Add(new SelectListItem { Text = "Neurology", Value = "Neurology" });
+}
+
+@{ 
+    List<SelectListItem> listtime = new List<SelectListItem>();
+    listtime.Add(new SelectListItem { Text = "9:00am-1:00pm", Value = "9:00am-1:00pm" });
+    listtime.Add(new SelectListItem { Text = "2:00pm-5:00pm", Value = "2:00pm-5:00pm" });   
+
+}
+
+<h2 style="color:cornflowerblue">Book your Appointment</h2>
+
+@using (Html.BeginForm())
+{
+<table>
+    <tr>
+        <td>@Html.LabelFor(n=>n.patientid)</td>
+        <td>@Html.EditorFor(n => n.patientid)</td>
+        <td>@Html.ValidationMessageFor(n => n.patientid)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(n => n.dept)</td>
+        <td>@Html.DropDownListFor(n => n.dept,listdep,"--Select Department--")</td>
+        <td>@Html.ValidationMessageFor(n => n.dept)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(n => n.docname)</td>
+        <td>@Html.EditorFor(n => n.docname)</td>
+        <td>@Html.ValidationMessageFor(n=>n.docname)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(n => n.predate)</td>
+        <td>@Html.TextBoxFor(n => n.predate,new { @Type= "Date"})</td>
+        <td>@Html.ValidationMessageFor(n => n.predate)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(n => n.timeslot)</td>
+        <td>@Html.DropDownListFor(n => n.timeslot,listtime,"--Select Time Slot--")</td>
+        <td>@Html.ValidationMessageFor(n => n.timeslot)</td>
+    </tr>
+    <tr>
+       <td><input type="submit" value="Book Appointment" /></td> 
+    </tr>
+
+</table>
+
+}
