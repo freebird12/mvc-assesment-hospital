@@ -1,0 +1,116 @@
+using AssessmentHospital.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace AssessmentHospital.Controllers
+{
+    public class HospitalController : Controller
+    {
+        public ActionResult login()
+        {
+            return View("login");
+        }
+        [HttpPost]
+        public ActionResult login(FormCollection f)
+        {
+            string u=f["username"];
+            string p=f["pass"];
+            if ((u == "Admin" && p == "Admin" )|| (u == "admin" && p == "admin"))
+            {
+                return RedirectToAction("register");
+            }
+            else
+            {
+                Response.Write("<script>alert('Invalid Login Credentials')</script>");
+                return View("login");
+            }
+
+            
+        }
+        public ActionResult register()
+        {
+            return View("register");
+        }
+        [HttpPost]
+        public ActionResult register(tblPatient1349205 t)
+        {
+            if (ModelState.IsValid)
+            {
+                DB01TMS155_1718Entities d = new DB01TMS155_1718Entities();
+                ObjectParameter opid = new ObjectParameter("pid", 0);
+                d.sp_tblPatient1349205(opid, t.name, t.age, t.contact, t.adr);
+                int i = Convert.ToInt32(opid.Value);
+                Session["pid"] = i;
+                Response.Write("<script>alert('Patient Successfully Registered ! Your Patient Id is " + i + "')</script>");
+                
+            }
+            return View("register");
+          
+            
+        }
+
+        public ActionResult bookapp()
+        {
+
+            return View("bookapp");
+        }
+        [HttpPost]
+        public ActionResult bookapp(tblBookAppointment1349205 tba)
+
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    DB01TMS155_1718Entities d = new DB01TMS155_1718Entities();
+                    ObjectParameter oaid = new ObjectParameter("a", 0);
+                    int pid = Convert.ToInt32(Session["pid"]);
+                    int a = Convert.ToInt32(oaid.Value);
+                    d.sp_tblBookAppointment1349205(oaid, tba.patientid, tba.dept, tba.docname, tba.predate, tba.timeslot);
+                    Response.Write("<script>alert('Appointment Successfully Booked for Patient Id-" + pid + " with Appointment ID-" + a + " ')</script>");
+                }
+                catch { Response.Write("<script>alert('Patient ID not registered! Please Register First! ')</script>"); }
+            }
+
+            return View("bookapp");
+        }
+
+        public ActionResult viewapp()
+        {
+            DB01TMS155_1718Entities d = new DB01TMS155_1718Entities();
+            var data=d.sp_view1349205().ToList();
+
+            return View("viewapp",data);
+        }
+        public ActionResult cancel(int id)
+        {
+            DB01TMS155_1718Entities d = new DB01TMS155_1718Entities();
+            d.sp_cancel1349205(id);
+
+            return RedirectToAction("viewapp");
+        }
+
+        public ActionResult logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("login");
+        }
+        public ActionResult searchbydep(FormCollection form)
+        {
+           string dep= form["dep"];
+            DB01TMS155_1718Entities d = new DB01TMS155_1718Entities();
+            List<sp_view1349205_Result> list = new List<sp_view1349205_Result>();
+           list= d.sp_view1349205().ToList().FindAll(a => a.dept == dep);
+
+            return View("viewapp",list);
+        }
+        
+    }
+
+
+    
+}
